@@ -14,23 +14,13 @@ class SKJ_Meetmyteam_Block_Adminhtml_Meetmyteam_Grid extends Mage_Adminhtml_Bloc
 	protected function _prepareCollection()
 	{
 		$collection = Mage::getModel('meetmyteam/meetmyteam')->getCollection();
-		$this->setCollection($collection);
+		$this->setCollection($collection);		
 		return parent::_prepareCollection();
 	}
 
 	protected function _prepareColumns()
 	{
-		
-		$catCollection = Mage::getModel('meetmyteam/category')->getCollection();
-		$catCollection->addFieldToFilter('status',Array('eq'=>1));
-		
-		$categoryOption = '';
-
-		foreach($catCollection as $cat)
-		{
-			$key = $cat['meetmyteam_cat_id'];
-			$categoryOption[$key] = $cat->getTitle();
-		}
+				
 		
 		$this->addColumn('meetmyteam_id', array(
 				'header'    => Mage::helper('meetmyteam')->__('ID'),
@@ -58,6 +48,12 @@ class SKJ_Meetmyteam_Block_Adminhtml_Meetmyteam_Grid extends Mage_Adminhtml_Bloc
 				'index'     => 'meetmyteam_id',
 				'renderer'=> new SKJ_Meetmyteam_Block_Adminhtml_Renderer_Image(),
 		));
+
+		$this->addColumn('position', array(
+          'header'    => Mage::helper('meetmyteam')->__('Position'),
+          'align'     =>'left',
+          'index'     => 'position',
+      	));
 		 
 
 		$this->addColumn('status', array(
@@ -72,14 +68,38 @@ class SKJ_Meetmyteam_Block_Adminhtml_Meetmyteam_Grid extends Mage_Adminhtml_Bloc
 				),
 		));
 
+		$catCollection = Mage::getModel('meetmyteam/category')->getCollection();
+		$catCollection->addFieldToFilter('status',Array('eq'=>1));
+		
+		$categoryOption = '';
+		foreach($catCollection as $cat)
+		{
+			$key = $cat['meetmyteam_cat_id'];
+			$categoryOption[$key] = $cat->getTitle();
+		}
+
+		/*			
 		$this->addColumn('category', array(
-				'header'    => Mage::helper('customer')->__('Category'),
+				'header'    => Mage::helper('catalog')->__('Category'),
 				'width'     => '200px',
 				'index'     => 'category',
 				'type'  	=> 'options',
 				'options' 	=> $categoryOption,
 		));
-		 
+		*/
+		 				
+
+		$this->addColumn('category', array(
+            'header'    => Mage::helper('catalog')->__('Category'),
+            'width'     => '180px',
+            'index'     => 'category',
+            'type'  => 'options',
+            'options' => $categoryOption,
+            'filter_condition_callback' => array($this, '_filterCategoriesCondition'),
+            'renderer'=> new SKJ_Meetmyteam_Block_Adminhtml_Renderer_Category(),
+		));
+
+
 		 
 		$this->addColumn('action',
 				array(
@@ -139,6 +159,15 @@ class SKJ_Meetmyteam_Block_Adminhtml_Meetmyteam_Grid extends Mage_Adminhtml_Bloc
 	public function getRowUrl($row)
 	{
 		return $this->getUrl('*/*/edit', array('id' => $row->getId()));
+	}
+
+	protected function _filterCategoriesCondition($collection, $column)
+	{
+	    if (!$value = $column->getFilter()->getValue()) {
+	        return;
+	    }
+	 
+	    $this->getCollection()->addFieldToFilter('category', array('finset' => $value));
 	}
 
 }

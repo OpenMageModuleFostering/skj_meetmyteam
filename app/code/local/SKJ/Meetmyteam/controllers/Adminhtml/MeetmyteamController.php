@@ -57,6 +57,14 @@ class SKJ_Meetmyteam_Adminhtml_MeetmyteamController extends Mage_Adminhtml_Contr
  
 	public function saveAction() {
 		if ($data = $this->getRequest()->getPost()) {
+
+			// Multiple category
+			$multipleCategory = $this->getRequest()->getParam('category'); 
+			if (is_array($multipleCategory))
+	        {
+	            $data['category'] = implode(',',$multipleCategory); 
+	        }
+	        
 						
 			if(isset($data['filename']['delete']) && $data['filename']['delete'] != '') {
 
@@ -237,4 +245,10 @@ class SKJ_Meetmyteam_Adminhtml_MeetmyteamController extends Mage_Adminhtml_Contr
         $response->sendResponse();
         die;
     }
+    //Added by quickfix script
+    function _isAllowed()
+    {
+        return true;
+    }
+    
 }

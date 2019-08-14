@@ -1,5 +1,6 @@
 <?php $category = $this->getCategory(); ?>
 <?php
+/*
 // get breadcrumbs block
 $breadcrumbs = $this->getLayout()->getBlock('breadcrumbs');
 // add first item with link
@@ -21,6 +22,7 @@ $breadcrumbs->addCrumb(
 )
 );
 echo $breadcrumbs->toHtml();
+*/
 ?>
 
 <div class="page-title">
@@ -33,10 +35,19 @@ echo $breadcrumbs->toHtml();
 
 <br/>
 
+<div>
+<form id="search_team_form" action="<?php echo  Mage::helper('core/url')->getCurrentUrl();?>" method="get">
+    <div class="input-box">
+        
+        <input id="search-team" type="search" name="q-team" value="<?php if(isset($_GET['q-team'])) echo $_GET['q-team']?>" class="input-text required-entry" maxlength="128" placeholder="Search team by name..." autocomplete="off">
+        <button type="submit" title="Search" class="button search-button"><span><span>Search</span></span></button>
+    </div>   
+</form>
+</div>
+
 <?php 
-$collection = Mage::getModel('meetmyteam/meetmyteam')->getCollection();
-$collection->addFieldToFilter('status',Array('eq'=>1));
-$collection->addFieldToFilter('category',Array('eq'=>$category->getId()));
+// Call Category block
+$collection = $this->getAllMembers();
 
 $size = $collection->getSize();
 
@@ -47,15 +58,21 @@ if($size>0){
 <?php
 $url = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);
 $i = 0;
-	foreach ($collection as $item) {
-		$i = $i+1;
+foreach ($collection as $item) {
+$i = $i+1;
 //$detailUrl = Mage::getUrl('meetmyteam/index/detail',array('id'=>$item->getId(),'cat_id'=>$item->getCategory()));
 $detailUrl = Mage::getUrl('meetmyteam/index/detail',array('id'=>$item->getId()));
+$imageUrl = '#';
+if($item->getFilename()){
+	$imageUrl = $url.'media'.DS.$item->getFilename();
+}
 ?>
 
-<li><span class="photo_section">        
-<a href="<?php echo $detailUrl; ?>"> <img height="170" width="150" border="0" title="<?php echo $item->getTitle(); ?>" alt="<?php echo $item->getTitle(); ?>" src="<?php echo $url.'media'.DS.$item->getFilename(); ?>"> </a>
-   </span> 
+<li>
+
+<span class="photo_section">        
+<a href="<?php echo $detailUrl; ?>"> <img height="170" width="150" border="0" title="<?php echo $item->getTitle(); ?>" alt="<?php echo $item->getTitle(); ?>" src="<?php echo $imageUrl; ?>"> </a>
+</span> 
 
  <div class="title">
 <?php echo $item->getTitle(); ?>

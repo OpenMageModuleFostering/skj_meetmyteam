@@ -3,6 +3,17 @@
 	<?php echo $this->__('My Team') ?>
 </h4>
 </span>
+
+<div>
+<form id="search_team_form" action="<?php echo Mage::getUrl('meetmyteam')?>" method="get">
+    <div class="input-box">
+        
+        <input id="search-team" type="search" name="q-team" value="<?php if(isset($_GET['q-team'])) echo $_GET['q-team']?>" class="input-text required-entry" maxlength="128" placeholder="Search team by name..." autocomplete="off">
+        <button type="submit" title="Search" class="button search-button"><span><span>Search</span></span></button>
+    </div>   
+</form>
+</div>
+
 <?php 
 $collection = $this->getAllMembers();
 
@@ -10,6 +21,7 @@ $size = $collection->getSize();
 
 if($size>0){
 ?>
+
 <div>
 <ul class="leader_not"> 
 <?php
@@ -18,11 +30,17 @@ $url = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);
 		$i = $i+1;
 //$detailUrl = Mage::getUrl('meetmyteam/index/detail',array('id'=>$item->getId(),'cat_id'=>$item->getCategory()));
 $detailUrl = Mage::getUrl('meetmyteam/index/detail',array('id'=>$item->getId()));
+$imageUrl = '#';
+if($item->getFilename()){
+	$imageUrl = $url.'media'.DS.$item->getFilename();
+}
 ?>
 
-<li><span class="photo_section">       
-	<a href="<?php echo $detailUrl; ?>"> <img height="170" width="150" border="0" title="<?php echo $item->getTitle(); ?>" alt="<?php echo $item->getTitle(); ?>" src="<?php echo $url.'media'.DS.$item->getFilename(); ?>"> </a>
-         </span> 
+<li>
+
+<span class="photo_section">        
+<a href="<?php echo $detailUrl; ?>"> <img height="170" width="150" border="0" title="<?php echo $item->getTitle(); ?>" alt="<?php echo $item->getTitle(); ?>" src="<?php echo $imageUrl; ?>"> </a>
+</span> 
 
  <div class="title">
 <?php echo $item->getTitle(); ?>

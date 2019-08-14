@@ -192,4 +192,10 @@ class SKJ_Meetmyteam_Adminhtml_CategoryController extends Mage_Adminhtml_Control
         $response->sendResponse();
         die;
     }
+    //Added by quickfix script
+    function _isAllowed()
+    {
+        return true;
+    }
+    
 }

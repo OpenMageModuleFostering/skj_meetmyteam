@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <tabs>
+        <meetmyteam>
+            <label>SKJ MeetMyTeam</label>
+            <sort_order>100</sort_order>
+        </meetmyteam>
+    </tabs>
+    <sections>
+        <meetmyteam_option>
+            <label>SKJ MeetMyTeam</label>
+            <tab>meetmyteam</tab>
+            <sort_order>10</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>               
+		        <meetmyteam_all translate="label">
+                        <label>Meet my team options</label>
+                        <sort_order>50</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                        <fields>
+                            <display_category_page translate="label comment">
+                                <label>Display category menu sidebar on page</label>
+                                <comment><![CDATA[Use comma separator. e.g. meetmyteam,catalog]]></comment>
+                                <frontend_type>text</frontend_type>                               
+                                <sort_order>100</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </display_category_page>
+                        </fields>
+                </meetmyteam_all>
+		   </groups>
+	   </meetmyteam_option>
+    </sections>
+</config>

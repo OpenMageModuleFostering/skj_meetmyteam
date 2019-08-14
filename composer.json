@@ -3,7 +3,7 @@
     "type": "magento-module",
     "license": "version-OSL-v3.0",
     "homepage": "",
-    "description": "It is known as Team Management or Member Management or Board Management.",
+    "description": "Team Management extension for Magento",
     "authors": [
     {
         "name": "Sanjeev Jha",

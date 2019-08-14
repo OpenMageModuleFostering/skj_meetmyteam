@@ -1,5 +1,24 @@
 <?php $categories = $this->getCategoryList(); 
 $size = $categories->getSize();
+
+/**/
+$pages = Mage::getStoreConfig('meetmyteam_option/meetmyteam_all/display_category_page');
+if($pages):
+//$currentPage = Mage::app()->getRequest()->getRouteName();
+$pagesArray = explode(',', $pages);
+//if(in_array($currentPage, $pagesArray)):
+
+$currentPage = Mage::helper('core/url')->getCurrentUrl();
+$display = false;
+foreach ($pagesArray as $value) {
+	if (strpos($currentPage,$value) !== false){
+		$display = true; // yes page is for display
+	}
+}
+if($display):
+/**/	
+  
+
 if($size > 0):
 ?>
 <h4>
@@ -15,4 +34,7 @@ foreach ($categories as $category) {
 }
 ?>
 </ul>
+<?php endif; ?>
+
+<?php endif; ?>
 <?php endif; ?>

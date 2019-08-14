@@ -42,24 +42,49 @@ $breadcrumbs->addCrumb(
 );
 echo $breadcrumbs->toHtml();
 ?>
+
+<div>
+<form id="search_team_form" action="<?php echo Mage::getUrl('meetmyteam')?>" method="get">
+    <div class="input-box">
+        
+        <input id="search-team" type="search" name="q-team" value="<?php if(isset($_GET['q-team'])) echo $_GET['q-team']?>" class="input-text required-entry" maxlength="128" placeholder="Search team by name..." autocomplete="off">
+        <button type="submit" title="Search" class="button search-button"><span><span>Search</span></span></button>
+    </div>   
+</form>
+</div>
+
 <div class="meetmyteam-detail">
 <?php
 $url = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);
-echo "<img width='250px' height='250px' title='". $item->getTitle() ."' alt='". $item->getTitle() ."' src='".$url."media".DS.$item->getFilename()."'/>";
+$imageUrl = '#';
+if($item->getFilename()){
+	$imageUrl = $url.'media'.DS.$item->getFilename();
+}
+
+echo "<img width='250px' height='250px' title='". $item->getTitle() ."' alt='". $item->getTitle() ."' src='".$imageUrl."'/>";
 echo "<h4>  ".$item->getTitle()."</h4>"; 
 
 echo "<h6>";
 echo $item->getDescription();
 echo "</h6>";
 echo "<p>";
-echo $item->getContent();
+//echo $item->getContent();
+/**/
+$html_content = $item->getContents();
+$html_content = Mage::helper('cms')->getPageTemplateProcessor()->filter($html_content);
+echo $html_content;
+/**/
 echo "</p>";
 
 ?>
 
 </div>
 
-<a class="detail-back" href="<?php echo $detailUrl; ?>">&lt; Back </a><br/>
+<a class="detail-back" onclick="goBack()" href="<?php //echo $detailUrl; ?>">&lt; Back </a><br/>
 
-
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>
 

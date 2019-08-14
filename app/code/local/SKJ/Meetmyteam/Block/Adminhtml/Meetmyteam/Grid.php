@@ -24,6 +24,8 @@ class SKJ_Meetmyteam_Block_Adminhtml_Meetmyteam_Grid extends Mage_Adminhtml_Bloc
 		$catCollection = Mage::getModel('meetmyteam/category')->getCollection();
 		$catCollection->addFieldToFilter('status',Array('eq'=>1));
 		
+		$categoryOption = '';
+
 		foreach($catCollection as $cat)
 		{
 			$key = $cat['meetmyteam_cat_id'];

@@ -7,8 +7,8 @@ $installer->startSetup();
 
 $installer->run("
 
-		-- DROP TABLE IF EXISTS meetmyteam_cat;
-		CREATE TABLE meetmyteam_cat (
+		-- DROP TABLE IF EXISTS {$this->getTable('meetmyteam_cat')};
+		CREATE TABLE {$this->getTable('meetmyteam_cat')} (
 		`meetmyteam_cat_id` int(11) unsigned NOT NULL auto_increment,
 		`title` varchar(255) NOT NULL default '',
 		`description` text NOT NULL default '',

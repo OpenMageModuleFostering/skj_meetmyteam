@@ -3,12 +3,10 @@
     "type": "magento-module",
     "license": "version-OSL-v3.0",
     "homepage": "",
-    "description": "It is known as Team Management or Member Management or Board Management .
-
-Team Management is easy to display your team members for each team member group.",
+    "description": "It is known as Team Management or Member Management or Board Management.",
     "authors": [
     {
-        "name": "Sanjeev Kumar Jha",
+        "name": "Sanjeev Jha",
         "email": "jha.sanjeev.in@gmail.com"
     }
 ],

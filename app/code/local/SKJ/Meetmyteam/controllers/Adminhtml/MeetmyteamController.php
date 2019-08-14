@@ -3,7 +3,6 @@
  * @category   SKJ
  * @package    SKJ_Meetmyteam
  * @author     Sanjeev Kumar Jha <jha.sanjeev.in@gmail.com>
- * @website    http://www.sanjeevkumarjha.com.np
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class SKJ_Meetmyteam_Adminhtml_MeetmyteamController extends Mage_Adminhtml_Controller_action
@@ -58,7 +57,15 @@ class SKJ_Meetmyteam_Adminhtml_MeetmyteamController extends Mage_Adminhtml_Contr
  
 	public function saveAction() {
 		if ($data = $this->getRequest()->getPost()) {
-			
+						
+			if(isset($data['filename']['delete']) && $data['filename']['delete'] != '') {
+
+				$deleteFilename = $data['filename']['value'];				
+				// unlink image from media directory				
+				unlink('media'.DS. $deleteFilename);
+				$data['filename'] = '';					
+			}
+
 			if(isset($_FILES['filename']['name']) && $_FILES['filename']['name'] != '') {
 				try {	
 					/* Starting upload */	
@@ -131,6 +138,10 @@ class SKJ_Meetmyteam_Adminhtml_MeetmyteamController extends Mage_Adminhtml_Contr
 		if( $this->getRequest()->getParam('id') > 0 ) {
 			try {
 				$model = Mage::getModel('meetmyteam/meetmyteam');
+
+				$meetmyteam = Mage::getModel('meetmyteam/meetmyteam')->load($this->getRequest()->getParam('id'));
+				// unlink image from media directory				
+				unlink('media'.DS. $meetmyteam->getFilename());								
 				 
 				$model->setId($this->getRequest()->getParam('id'))
 					->delete();
@@ -153,6 +164,8 @@ class SKJ_Meetmyteam_Adminhtml_MeetmyteamController extends Mage_Adminhtml_Contr
             try {
                 foreach ($meetmyteamIds as $meetmyteamId) {
                     $meetmyteam = Mage::getModel('meetmyteam/meetmyteam')->load($meetmyteamId);
+                    // unlink image from media directory				
+					unlink('media'.DS. $meetmyteam->getFilename());	
                     $meetmyteam->delete();
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess(

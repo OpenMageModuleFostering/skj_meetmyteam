@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/SKJ_Meetmyteam",
+    "type": "magento-module",
+    "license": "version-OSL-v3.0",
+    "homepage": "",
+    "description": "Team Management is easy to display your team members for each team member group.",
+    "authors": [
+    {
+        "name": "Sanjeev Kumar Jha",
+        "email": "jha.sanjeev.in@gmail.com"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}

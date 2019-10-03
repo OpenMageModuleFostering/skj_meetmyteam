@@ -1,7 +1,7 @@
 {
-    "name": "OpenMageModuleFostering\/SKJ_Meetmyteam",
+    "name": "openmage-module-fostering\/skj_meetmyteam",
     "type": "magento-module",
-    "license": "version-OSL-v3.0",
+    "license": "OSL-3.0",
     "homepage": "",
     "description": "Team Management extension for Magento",
     "authors": [

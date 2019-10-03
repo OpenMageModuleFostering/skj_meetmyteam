@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/SKJ_Meetmyteam",
+    "name": "OpenMageModuleFostering\/SKJ_Meetmyteam",
     "type": "magento-module",
     "license": "version-OSL-v3.0",
     "homepage": "",
     "description": "Team Management extension for Magento",
     "authors": [
-    {
-        "name": "Sanjeev Jha",
-        "email": "jha.sanjeev.in@gmail.com"
-    }
-],
+        {
+            "name": "Sanjeev Jha",
+            "email": "jha.sanjeev.in@gmail.com"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
